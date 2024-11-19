@@ -627,31 +627,6 @@ paths:
       - petstore_auth:
         - "write:pets"
         - "read:pets"
-  /pet/{petId}/testInjectParam:
-    post:
-      tags:
-      - "pet"
-      summary: "Updates a pet in the store with form data"
-      description: ""
-      operationId: "updatePetWithFormViaInjectParam"
-      consumes:
-      - "application/x-www-form-urlencoded"
-      produces:
-      - "application/json"
-      - "application/xml"
-      parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/MyBean"
-      responses:
-        405:
-          description: "Invalid input"
-      security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
   /pet/{startId}:{endId}:
     get:
       tags:
@@ -1064,50 +1039,6 @@ definitions:
     xml:
       name: "ListItem"
       namespace: "http://com.wordnik/sample/model"
-  MyBean:
-    type: "object"
-    required:
-    - "constrainedField"
-    properties:
-      myParentheader:
-        type: "string"
-      petId:
-        type: "string"
-      name:
-        type: "string"
-      status:
-        type: "string"
-      intValue:
-        type: "integer"
-        format: "int32"
-      listValue:
-        type: "array"
-        items:
-          type: "string"
-      nestedBean:
-        $ref: "#/definitions/MyNestedBean"
-      constructorInjectedNestedBean:
-        $ref: "#/definitions/MyConstructorInjectedNestedBean"
-      testIntegerAllowableValues:
-        type: "integer"
-        format: "int32"
-      constrainedField:
-        type: "integer"
-        format: "int32"
-        minimum: 25
-        maximum: 75
-      myheader:
-        type: "string"
-  MyNestedBean:
-    type: "object"
-    properties:
-      myNestedBeanHeader:
-        type: "string"
-  MyConstructorInjectedNestedBean:
-    type: "object"
-    properties:
-      constructorInjectedHeader:
-        type: "string"
   Order:
     type: "object"
     properties:

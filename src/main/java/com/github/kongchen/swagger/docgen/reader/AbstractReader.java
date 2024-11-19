@@ -3,7 +3,6 @@ package com.github.kongchen.swagger.docgen.reader;
 import com.github.kongchen.swagger.docgen.util.TypeExtracter;
 import com.github.kongchen.swagger.docgen.util.TypeWithAnnotations;
 import com.google.common.collect.Lists;
-import com.sun.jersey.api.core.InjectParam;
 import io.swagger.annotations.*;
 import io.swagger.converter.ModelConverters;
 import io.swagger.jaxrs.ext.SwaggerExtension;
@@ -24,7 +23,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.*;
+import jakarta.ws.rs.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -39,7 +38,7 @@ public abstract class AbstractReader {
     private Set<Type> typesToSkip = new HashSet<Type>();
 
     protected String operationIdFormat;
-    
+
     /**
      * Supported parameters: {{packageName}}, {{className}}, {{methodName}}, {{httpMethod}}
      * Suggested default value is: "{{className}}_{{methodName}}_{{httpMethod}}"
@@ -281,7 +280,6 @@ public abstract class AbstractReader {
         List<Type> validParameterAnnotations = new ArrayList<>();
         validParameterAnnotations.add(ModelAttribute.class);
         validParameterAnnotations.add(BeanParam.class);
-        validParameterAnnotations.add(InjectParam.class);
         validParameterAnnotations.add(ApiParam.class);
         validParameterAnnotations.add(PathParam.class);
         validParameterAnnotations.add(QueryParam.class);
@@ -466,22 +464,22 @@ public abstract class AbstractReader {
             extension.decorateOperation(operation, method, chain);
         }
     }
-    
+
     protected String getOperationId(Method method, String httpMethod) {
   		if (this.operationIdFormat == null) {
   			this.operationIdFormat = OPERATION_ID_FORMAT_DEFAULT;
   		}
-  		
+
   		String packageName = method.getDeclaringClass().getPackage().getName();
   		String className = method.getDeclaringClass().getSimpleName();
   		String methodName = method.getName();
-        
+
   		StrBuilder sb = new StrBuilder(this.operationIdFormat);
   		sb.replaceAll("{{packageName}}", packageName);
   		sb.replaceAll("{{className}}", className);
   		sb.replaceAll("{{methodName}}", methodName);
   		sb.replaceAll("{{httpMethod}}", httpMethod);
-  		
+
   		return sb.toString();
     }
 

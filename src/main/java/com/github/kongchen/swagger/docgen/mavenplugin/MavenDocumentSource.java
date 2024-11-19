@@ -10,7 +10,7 @@ import com.github.kongchen.swagger.docgen.reader.AbstractReader;
 import com.github.kongchen.swagger.docgen.reader.ClassSwaggerReader;
 import com.github.kongchen.swagger.docgen.reader.JaxrsReader;
 
-import javax.ws.rs.Path;
+import jakarta.ws.rs.Path;
 import java.util.Set;
 
 /**

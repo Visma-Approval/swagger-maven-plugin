@@ -432,13 +432,14 @@ to check which package introduces the one conflicts with yours, and then you can
 To exclude `javax.ws.rs:jsr311-api:jar:1.1.1:compile` from `swagger-jaxrs_2.10`:
 
 ```xml
+
 <dependency>
     <groupId>com.wordnik</groupId>
     <artifactId>swagger-jaxrs_2.10</artifactId>
     <version>1.3.2</version>
     <exclusions>
         <exclusion>
-            <groupId>javax.ws.rs</groupId>
+            <groupId>jakarta.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
         </exclusion>
     </exclusions>

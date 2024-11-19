@@ -3,14 +3,13 @@ package com.github.kongchen.swagger.docgen.jaxrs;
 import com.github.kongchen.swagger.docgen.reader.AbstractReader;
 import com.github.kongchen.swagger.docgen.reader.JaxrsReader;
 import com.google.common.collect.Lists;
-import com.sun.jersey.api.core.InjectParam;
-import com.sun.jersey.core.header.FormDataContentDisposition;
 import io.swagger.jaxrs.ext.AbstractSwaggerExtension;
 import io.swagger.jaxrs.ext.SwaggerExtension;
 import io.swagger.models.parameters.Parameter;
 import org.apache.commons.lang3.reflect.TypeUtils;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
-import javax.ws.rs.BeanParam;
+import jakarta.ws.rs.BeanParam;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Iterator;
@@ -24,12 +23,12 @@ import java.util.Set;
  *
  * @author chekong on 15/5/9.
  */
-public class BeanParamInjectParamExtension extends AbstractSwaggerExtension {
+public class BeanParamExtension extends AbstractSwaggerExtension {
 
 
     private AbstractReader reader;
 
-    public BeanParamInjectParamExtension(AbstractReader reader) {
+    public BeanParamExtension(AbstractReader reader) {
         this.reader = reader;
     }
 
@@ -43,7 +42,7 @@ public class BeanParamInjectParamExtension extends AbstractSwaggerExtension {
             return Lists.newArrayList();
         }
         for (Annotation annotation : annotations) {
-            if (annotation instanceof BeanParam || annotation instanceof InjectParam) {
+            if (annotation instanceof BeanParam) {
                 return reader.extractTypes(cls, typesToSkip, Lists.newArrayList());
             }
         }
